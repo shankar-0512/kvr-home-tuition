@@ -16,6 +16,23 @@ export const metadata: Metadata = {
   title: "KVR Brain Point | Home Tuition & Online Coaching in Chennai",
   description:
     "KVR Brain Point offers personalised home tuition and online coaching for Classes 1–12 in Chennai. Concept clarity, regular practice, and weekly feedback for parents.",
+
+  openGraph: {
+    title: "KVR Brain Point | Home Tuition & Online Coaching in Chennai",
+    description:
+      "Personalised home tuition and online coaching for Classes 1–12 in Chennai.",
+    url: "https://kvr-home-tuition.vercel.app",
+    siteName: "KVR Brain Point",
+    images: [
+      {
+        url: "https://kvr-home-tuition.vercel.app/logo.jpeg",
+        width: 1200,
+        height: 630,
+        alt: "KVR Brain Point",
+      },
+    ],
+    type: "website",
+  },
 };
 
 export default function RootLayout({
