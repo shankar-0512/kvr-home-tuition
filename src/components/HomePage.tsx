@@ -326,7 +326,7 @@ function Contact() {
 
 function Footer() {
   return (
-    <footer className="border-t bg-white">
+    <footer className="border-t bg-white pb-20 md:pb-0">
       <div className="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-8 text-sm text-slate-600 md:flex-row md:items-center md:justify-between">
         <div>© {new Date().getFullYear()} KVR Brain Point</div>
         <div className="flex gap-4">
