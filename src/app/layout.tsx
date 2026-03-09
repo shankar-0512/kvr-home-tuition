@@ -35,6 +35,31 @@ export const metadata: Metadata = {
   },
 };
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "EducationalOrganization",
+  name: "KVR Brain Point",
+  description:
+    "Personalised home tuition and online coaching for Classes 1–12 in Chennai. Concept clarity, regular practice, and weekly feedback for parents.",
+  url: "https://kvr-home-tuition.vercel.app",
+  logo: "https://kvr-home-tuition.vercel.app/logo.jpeg",
+  telephone: "+91-8668194510",
+  email: "kvrchennaihometuition@gmail.com",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Chennai",
+    addressRegion: "Tamil Nadu",
+    addressCountry: "IN",
+  },
+  areaServed: { "@type": "City", name: "Chennai" },
+  openingHoursSpecification: {
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+    opens: "06:00",
+    closes: "21:00",
+  },
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -42,6 +67,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth scroll-pt-28 md:scroll-pt-30">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

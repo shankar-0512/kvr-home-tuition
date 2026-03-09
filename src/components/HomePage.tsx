@@ -1,5 +1,7 @@
 import { Testimonials } from "./Testimonials";
 import { EnquiryFormClientOnly } from "./EnquiryFormClientOnly";
+import { MobileNav } from "./MobileNav";
+import { FAQ } from "./FAQ";
 
 
 export function HomePage() {
@@ -12,10 +14,12 @@ export function HomePage() {
         <TrustStrip />
         <Testimonials />
         <Sections />
+        <FAQ />
         <Contact />
       </main>
       <Footer />
       <WhatsAppFloatingButton />
+      <StickyMobileCTA />
     </div>
   );
 }
@@ -55,7 +59,7 @@ function AnnouncementBar() {
 function Header() {
   return (
     <header className="sticky top-10 z-50 border-b bg-white/80 backdrop-blur">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
+      <div className="relative mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
         <div className="flex items-center gap-3">
           <img
             src="/logo.jpeg"
@@ -71,6 +75,7 @@ function Header() {
         <nav className="hidden items-center gap-6 text-sm md:flex">
           <a className="text-slate-600 hover:text-slate-900" href="#subjects">Subjects</a>
           <a className="text-slate-600 hover:text-slate-900" href="#how">How it works</a>
+          <a className="text-slate-600 hover:text-slate-900" href="#faq">FAQ</a>
           <a className="text-slate-600 hover:text-slate-900" href="#contact">Enquiry</a>
         </nav>
 
@@ -80,6 +85,8 @@ function Header() {
         >
           Get a call back
         </a>
+
+        <MobileNav />
       </div>
     </header>
   );
@@ -281,7 +288,7 @@ function Contact() {
         <div>
           <h2 className="text-2xl font-semibold tracking-tight">Enquiry</h2>
           <p className="mt-2 text-slate-600">
-            Share what you need and we’ll contact you soon.
+            Share what you need and we'll contact you soon.
           </p>
 
           <div className="mt-6 rounded-3xl border bg-slate-50 p-6">
@@ -324,6 +331,7 @@ function Footer() {
         <div>© {new Date().getFullYear()} KVR Brain Point</div>
         <div className="flex gap-4">
           <a className="hover:text-slate-900" href="#subjects">Subjects</a>
+          <a className="hover:text-slate-900" href="#faq">FAQ</a>
           <a className="hover:text-slate-900" href="#contact">Enquiry</a>
           <a className="hover:text-slate-900" href="/admin">Admin</a>
         </div>
@@ -344,7 +352,8 @@ function WhatsAppFloatingButton() {
       rel="noreferrer"
       aria-label="Chat on WhatsApp"
       className="
-        fixed bottom-5 right-5 z-50
+        fixed right-5 z-50
+        bottom-20 md:bottom-5
         flex h-14 w-14 items-center justify-center
         rounded-full bg-[#25D366]
         shadow-lg hover:brightness-95
@@ -360,5 +369,18 @@ function WhatsAppFloatingButton() {
         <path d="M19.11 17.19c-.29-.15-1.72-.85-1.99-.95-.27-.1-.47-.15-.67.15-.2.29-.77.95-.94 1.15-.17.2-.35.22-.64.07-.29-.15-1.24-.46-2.36-1.47-.87-.77-1.46-1.72-1.63-2.01-.17-.29-.02-.45.13-.6.13-.13.29-.35.44-.52.15-.17.2-.29.3-.49.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.48-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.29-1.04 1.02-1.04 2.49s1.07 2.9 1.22 3.1c.15.2 2.11 3.23 5.11 4.53.71.31 1.27.49 1.7.63.71.22 1.36.19 1.87.11.57-.09 1.72-.7 1.97-1.37.24-.67.24-1.24.17-1.37-.07-.12-.27-.2-.56-.35zM16.03 3C9.42 3 4 8.42 4 15.03c0 2.64.87 5.08 2.34 7.05L5 29l7.1-1.87c1.9 1.04 4.08 1.64 6.38 1.64 6.61 0 12.03-5.42 12.03-12.03C30.51 8.42 22.64 3 16.03 3z" />
       </svg>
     </a>
+  );
+}
+
+function StickyMobileCTA() {
+  return (
+    <div className="fixed bottom-0 left-0 right-0 z-40 border-t bg-white px-4 py-3 md:hidden">
+      <a
+        href="#contact"
+        className="flex w-full items-center justify-center rounded-xl bg-[#1F3A5F] px-4 py-3 text-sm font-semibold text-white hover:brightness-95"
+      >
+        Enquire now →
+      </a>
+    </div>
   );
 }

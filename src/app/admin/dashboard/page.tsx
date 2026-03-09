@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { verifyAdminCookieValue, adminCookie } from "@/lib/adminAuth";
 import { createClient } from "@supabase/supabase-js";
 import { LogoutButton } from "@/components/LogoutButton";
+import { StatusSelect } from "@/components/StatusSelect";
 
 export default async function AdminDashboard() {
   const cookieStore = await cookies();
@@ -54,6 +55,7 @@ export default async function AdminDashboard() {
           <table className="min-w-full text-sm">
             <thead className="bg-slate-50 text-left">
               <tr className="text-slate-700">
+                <th className="p-3 font-semibold">Status</th>
                 <th className="p-3 font-semibold">Date</th>
                 <th className="p-3 font-semibold">Name</th>
                 <th className="p-3 font-semibold">Phone</th>
@@ -68,6 +70,9 @@ export default async function AdminDashboard() {
               {data?.length ? (
                 data.map((e) => (
                   <tr key={e.id} className="border-t align-top">
+                    <td className="p-3">
+                      <StatusSelect id={e.id} current={e.status ?? "new"} />
+                    </td>
                     <td className="p-3 whitespace-nowrap text-slate-600">
                       {new Date(e.created_at).toLocaleString()}
                     </td>
@@ -108,7 +113,7 @@ export default async function AdminDashboard() {
                 ))
               ) : (
                 <tr>
-                  <td className="p-4 text-slate-600" colSpan={7}>
+                  <td className="p-4 text-slate-600" colSpan={8}>
                     No enquiries yet.
                   </td>
                 </tr>
