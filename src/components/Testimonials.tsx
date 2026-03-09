@@ -1,4 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
+import { unstable_cache } from "next/cache";
 
 type Testimonial = {
   id: string;
@@ -9,21 +10,31 @@ type Testimonial = {
   sort_order: number;
 };
 
+// Cache testimonials for 1 hour. Invalidated immediately when admin adds/deletes
+// a testimonial via revalidateTag("testimonials") in the admin routes.
+const getTestimonials = unstable_cache(
+  async () => {
+    const supabase = createClient(
+      process.env.SUPABASE_URL!,
+      process.env.SUPABASE_SERVICE_ROLE_KEY!,
+      { auth: { persistSession: false } }
+    );
+
+    const { data } = await supabase
+      .from("testimonials")
+      .select("id, created_at, name, subtitle, message, sort_order")
+      .order("sort_order", { ascending: true })
+      .order("created_at", { ascending: false })
+      .limit(6);
+
+    return (data ?? []) as Testimonial[];
+  },
+  ["testimonials-list"],
+  { revalidate: 3600 }
+);
+
 export async function Testimonials() {
-  const supabase = createClient(
-    process.env.SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!,
-    { auth: { persistSession: false } }
-  );
-
-  const { data } = await supabase
-    .from("testimonials")
-    .select("id, created_at, name, subtitle, message, sort_order")
-    .order("sort_order", { ascending: true })
-    .order("created_at", { ascending: false })
-    .limit(6);
-
-  const testimonials = (data ?? []) as Testimonial[];
+  const testimonials = await getTestimonials();
 
   if (!testimonials.length) return null;
 
@@ -54,7 +65,7 @@ export async function Testimonials() {
                     ))}
                 </div>
               <p className="text-sm text-slate-700 whitespace-pre-wrap">
-                “{t.message}”
+                &ldquo;{t.message}&rdquo;
               </p>
 
               <div className="mt-4 text-sm">

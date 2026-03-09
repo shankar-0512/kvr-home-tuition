@@ -21,7 +21,8 @@ export default async function AdminDashboard() {
   const { data } = await supabase
     .from("enquiries")
     .select("*")
-    .order("created_at", { ascending: false });
+    .order("created_at", { ascending: false })
+    .limit(200);
 
   const { data: testimonials } = await supabase
   .from("testimonials")

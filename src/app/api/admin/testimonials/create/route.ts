@@ -2,6 +2,7 @@ import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { verifyAdminCookieValue, adminCookie } from "@/lib/adminAuth";
+import { revalidatePath } from "next/cache";
 
 async function requireAdmin() {
   const cookieStore = await cookies();
@@ -11,7 +12,7 @@ async function requireAdmin() {
 
 export async function POST(req: Request) {
   if (!(await requireAdmin())) {
-    return NextResponse.json({ ok: false }, { status: 401 });
+    return NextResponse.json({ ok: false, error: "Unauthorized" }, { status: 401 });
   }
 
   const form = await req.formData();
@@ -28,6 +29,14 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, error: "Missing fields" }, { status: 400 });
   }
 
+  // Length limits to prevent storage abuse.
+  if (name.length > 100)
+    return NextResponse.json({ ok: false, error: "Name too long (max 100)" }, { status: 400 });
+  if (message.length > 2000)
+    return NextResponse.json({ ok: false, error: "Message too long (max 2000)" }, { status: 400 });
+  if (subtitle && subtitle.length > 200)
+    return NextResponse.json({ ok: false, error: "Subtitle too long (max 200)" }, { status: 400 });
+
   const supabase = createClient(
     process.env.SUPABASE_URL!,
     process.env.SUPABASE_SERVICE_ROLE_KEY!,
@@ -39,8 +48,10 @@ export async function POST(req: Request) {
   ]);
 
   if (error) {
-    return NextResponse.json({ ok: false }, { status: 500 });
+    return NextResponse.json({ ok: false, error: "Could not save testimonial" }, { status: 500 });
   }
+
+  revalidatePath("/");
 
   return NextResponse.redirect(new URL("/admin/dashboard", req.url), { status: 303 });
 }

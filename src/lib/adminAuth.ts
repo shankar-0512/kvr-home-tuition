@@ -6,8 +6,12 @@ const MAX_AGE_SECONDS = 60 * 60 * 8; // 8 hours
 function safeEqual(a: string, b: string) {
   const aa = Buffer.from(a, "utf8");
   const bb = Buffer.from(b, "utf8");
-  if (aa.length !== bb.length) return false;
-  return crypto.timingSafeEqual(aa, bb);
+  // Pad to the same length before comparing to avoid leaking length via timing.
+  // Also check lengths match explicitly (not via early return).
+  const len = Math.max(aa.length, bb.length);
+  const paddedA = Buffer.concat([aa, Buffer.alloc(len - aa.length)]);
+  const paddedB = Buffer.concat([bb, Buffer.alloc(len - bb.length)]);
+  return crypto.timingSafeEqual(paddedA, paddedB) && aa.length === bb.length;
 }
 
 function sign(input: string, secret: string) {

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { Resend } from "resend";
+import { checkRateLimit } from "@/lib/rateLimit";
 
 type Payload = {
   name: string;
@@ -24,6 +25,8 @@ const supabase = createClient(
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 function esc(s: string) {
   return s.replace(/[&<>"']/g, (c) => {
     const m: Record<string, string> = {
@@ -37,15 +40,47 @@ function esc(s: string) {
   });
 }
 
+function getClientIp(req: Request) {
+  const xff = req.headers.get("x-forwarded-for");
+  if (xff) return xff.split(",")[0].trim();
+  return "local";
+}
+
 export async function POST(req: Request) {
   try {
+    // Rate limit: 5 submissions per 15 minutes per IP.
+    const ip = getClientIp(req);
+    const allowed = await checkRateLimit(`enquiry:${ip}`, 5, 15 * 60 * 1000);
+    if (!allowed) {
+      return NextResponse.json(
+        { ok: false, error: "Too many submissions. Please try again later." },
+        { status: 429 }
+      );
+    }
+
     const body = (await req.json()) as Payload;
 
     if (!body?.name || !body?.phone || !body?.class || !body?.board || !body?.mode) {
       return NextResponse.json({ ok: false, error: "Missing required fields" }, { status: 400 });
     }
 
+    // Length limits to prevent storage abuse.
+    if (body.name.length > 100)
+      return NextResponse.json({ ok: false, error: "Name too long" }, { status: 400 });
+    if (body.phone.length > 20)
+      return NextResponse.json({ ok: false, error: "Phone number too long" }, { status: 400 });
+    if ((body.subject?.length ?? 0) > 200)
+      return NextResponse.json({ ok: false, error: "Subject too long" }, { status: 400 });
+    if ((body.location?.length ?? 0) > 200)
+      return NextResponse.json({ ok: false, error: "Location too long" }, { status: 400 });
+    if ((body.message?.length ?? 0) > 2000)
+      return NextResponse.json({ ok: false, error: "Message too long (max 2000 chars)" }, { status: 400 });
+
+    // Email format validation.
     const parentEmail = (body.parentEmail ?? "").trim() || null;
+    if (parentEmail && !EMAIL_REGEX.test(parentEmail)) {
+      return NextResponse.json({ ok: false, error: "Invalid email address" }, { status: 400 });
+    }
 
     const { data, error } = await supabase
       .from("enquiries")
@@ -64,7 +99,6 @@ export async function POST(req: Request) {
           message: body.message?.trim() || null,
 
           user_agent: req.headers.get("user-agent"),
-          // ip capture depends on hosting; keep null locally
           ip: null,
         },
       ])
@@ -72,7 +106,7 @@ export async function POST(req: Request) {
       .single();
 
     if (error) {
-      return NextResponse.json({ ok: false, error: "DB insert failed" }, { status: 500 });
+      return NextResponse.json({ ok: false, error: "Could not save enquiry" }, { status: 500 });
     }
 
     const to = process.env.NOTIFY_TO_EMAIL!;
@@ -100,13 +134,19 @@ export async function POST(req: Request) {
       </div>
     `;
 
-    await resend.emails.send({
-      from,
-      to,
-      subject,
-      html,
-      replyTo: parentEmail ?? undefined, // ✅ Reply-To only if provided
-    });
+    // Fire-and-forget — email failure is non-fatal since the enquiry is already
+    // saved to the DB. This also prevents slow email sending from blocking the response.
+    resend.emails
+      .send({
+        from,
+        to,
+        subject,
+        html,
+        replyTo: parentEmail ?? undefined,
+      })
+      .catch(() => {
+        // Email failure is intentionally swallowed here.
+      });
 
     return NextResponse.json({ ok: true });
   } catch {

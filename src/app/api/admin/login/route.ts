@@ -1,9 +1,7 @@
 import { NextResponse } from "next/server";
 import { createAdminCookieValue, adminCookie } from "@/lib/adminAuth";
+import { checkRateLimit, clearRateLimit } from "@/lib/rateLimit";
 import crypto from "crypto";
-
-type Bucket = { count: number; resetAt: number };
-const buckets = new Map<string, Bucket>();
 
 const MAX_ATTEMPTS = 5;
 const WINDOW_MS = 10 * 60 * 1000; // 10 minutes
@@ -14,61 +12,68 @@ function getClientIp(req: Request) {
   return "local";
 }
 
+// Constant-time comparison that does not leak length information.
 function safeEqual(a: string, b: string) {
   const aa = Buffer.from(a, "utf8");
   const bb = Buffer.from(b, "utf8");
-  if (aa.length !== bb.length) return false;
-  return crypto.timingSafeEqual(aa, bb);
+  const len = Math.max(aa.length, bb.length);
+  const paddedA = Buffer.concat([aa, Buffer.alloc(len - aa.length)]);
+  const paddedB = Buffer.concat([bb, Buffer.alloc(len - bb.length)]);
+  return crypto.timingSafeEqual(paddedA, paddedB) && aa.length === bb.length;
 }
 
 export async function POST(req: Request) {
   const ip = getClientIp(req);
-  const now = Date.now();
+  const rateLimitKey = `admin-login:${ip}`;
 
-  const bucket = buckets.get(ip);
-  if (bucket && bucket.resetAt > now && bucket.count >= MAX_ATTEMPTS) {
+  // Persistent rate limiting (Supabase-backed, survives restarts and scales
+  // across instances). Falls back to allowing if the DB is unavailable.
+  const allowed = await checkRateLimit(rateLimitKey, MAX_ATTEMPTS, WINDOW_MS);
+  if (!allowed) {
     return NextResponse.json(
       { ok: false, error: "Too many attempts. Try again later." },
       { status: 429 }
     );
   }
 
-  let body: any;
+  let body: { pin?: unknown };
   try {
     body = await req.json();
   } catch {
-    return NextResponse.json({ ok: false }, { status: 400 });
+    return NextResponse.json({ ok: false, error: "Invalid request" }, { status: 400 });
   }
 
   const pin = String(body?.pin ?? "").trim();
   const adminPin = String(process.env.ADMIN_PIN ?? "").trim();
 
   if (!adminPin) {
-    return NextResponse.json({ ok: false, error: "ADMIN_PIN not set" }, { status: 500 });
+    return NextResponse.json({ ok: false, error: "ADMIN_PIN not configured" }, { status: 500 });
+  }
+
+  // Enforce a minimum PIN strength at runtime.
+  if (adminPin.length < 8) {
+    return NextResponse.json(
+      { ok: false, error: "ADMIN_PIN must be at least 8 characters" },
+      { status: 500 }
+    );
   }
 
   if (!pin) {
-    return NextResponse.json({ ok: false }, { status: 401 });
+    return NextResponse.json({ ok: false, error: "PIN required" }, { status: 401 });
   }
-
-  // init or reset window
-  if (!bucket || bucket.resetAt <= now) {
-    buckets.set(ip, { count: 0, resetAt: now + WINDOW_MS });
-  }
-
-  const current = buckets.get(ip)!;
 
   const ok = safeEqual(pin, adminPin);
 
   if (!ok) {
-    current.count += 1;
-    buckets.set(ip, current);
-    return NextResponse.json({ ok: false }, { status: 401 });
+    return NextResponse.json({ ok: false, error: "Invalid PIN" }, { status: 401 });
   }
 
-  buckets.delete(ip);
+  // Clear rate limit on successful login.
+  await clearRateLimit(rateLimitKey);
 
   const res = NextResponse.json({ ok: true });
+  // sameSite:"strict" also provides CSRF protection for all admin endpoints —
+  // cross-origin requests will not include this cookie.
   res.cookies.set(adminCookie.name, createAdminCookieValue(), {
     httpOnly: true,
     sameSite: "strict",
