@@ -134,9 +134,10 @@ export async function POST(req: Request) {
       </div>
     `;
 
-    // Fire-and-forget — email failure is non-fatal since the enquiry is already
-    // saved to the DB. This also prevents slow email sending from blocking the response.
-    resend.emails
+    // Awaited — Vercel terminates the serverless runtime immediately after the
+    // response is sent, so fire-and-forget promises are killed mid-flight.
+    // Email failure is still non-fatal: the enquiry is already saved to DB.
+    await resend.emails
       .send({
         from,
         to,
