@@ -4,6 +4,7 @@ import { verifyAdminCookieValue, adminCookie } from "@/lib/adminAuth";
 import { createClient } from "@supabase/supabase-js";
 import { LogoutButton } from "@/components/LogoutButton";
 import { StatusSelect } from "@/components/StatusSelect";
+import { DeleteEnquiryButton } from "@/components/DeleteEnquiryButton";
 
 export default async function AdminDashboard() {
   const cookieStore = await cookies();
@@ -63,6 +64,7 @@ export default async function AdminDashboard() {
                 <th className="p-3 font-semibold">Board</th>
                 <th className="p-3 font-semibold">Mode</th>
                 <th className="p-3 font-semibold">Message</th>
+                <th className="p-3 font-semibold"></th>
               </tr>
             </thead>
 
@@ -109,11 +111,14 @@ export default async function AdminDashboard() {
                         </div>
                       ) : null}
                     </td>
+                    <td className="p-3">
+                      <DeleteEnquiryButton id={e.id} />
+                    </td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td className="p-4 text-slate-600" colSpan={8}>
+                  <td className="p-4 text-slate-600" colSpan={9}>
                     No enquiries yet.
                   </td>
                 </tr>
