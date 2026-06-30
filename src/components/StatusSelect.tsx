@@ -44,7 +44,7 @@ export function StatusSelect({ id, current }: { id: string; current: Status }) {
         defaultValue={current}
         onChange={handleChange}
         disabled={loading}
-        className="rounded-lg border bg-white px-2 py-1 text-xs text-slate-700 outline-none focus:ring-2 focus:ring-slate-200 disabled:opacity-50"
+        className="rounded-lg border border-ink/10 bg-white px-2 py-1 text-xs text-ink outline-none focus:ring-2 focus:ring-navy/20 disabled:opacity-50"
       >
         {(Object.keys(LABELS) as Status[]).map((s) => (
           <option key={s} value={s}>{LABELS[s]}</option>

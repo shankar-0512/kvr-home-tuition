@@ -1,37 +1,28 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme {
+  --color-ink: #15131f;
+  --color-muted: #566270;
+  --color-navy: #1c4269;
+  --color-navy-deep: #0f2640;
+  --color-orange: #f27630;
+  --color-orange-deep: #b5501a;
 
-:root {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #ffffff;
+  color: var(--color-ink);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }
 
-@keyframes marquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+.clip-diagonal-down {
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 5rem), 0 100%);
 }
 
-.animate-marquee {
-  animation: marquee 18s linear infinite;
+.clip-diagonal-both {
+  clip-path: polygon(0 5rem, 100% 0, 100% calc(100% - 5rem), 0 100%);
 }
 
 @keyframes whatsapp-pulse {
@@ -40,3 +31,23 @@ body {
   100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
 }
 
+.animate-whatsapp-pulse {
+  /* Pulses a handful of times to draw the eye, then settles - not forever. */
+  animation: whatsapp-pulse 2.2s ease-out 4;
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.7s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in-up,
+  .animate-whatsapp-pulse {
+    animation: none;
+  }
+}

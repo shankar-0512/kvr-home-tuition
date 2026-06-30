@@ -1,11 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { Reveal } from "./Reveal";
 
 const FAQS = [
   {
     q: "Do you offer a trial session?",
-    a: "Yes — we offer a free introductory call to understand the student's level and discuss a plan. Sessions begin after that.",
+    a: "Yes - we offer a free introductory call to understand the student's level and discuss a plan. Sessions begin after that.",
   },
   {
     q: "What are the fees?",
@@ -29,41 +30,79 @@ const FAQS = [
   },
 ];
 
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQS.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.a,
+    },
+  })),
+};
+
 export function FAQ() {
   const [open, setOpen] = useState<number | null>(null);
 
   return (
-    <section id="faq" className="border-t bg-white scroll-mt-24">
-      <div className="mx-auto max-w-6xl px-4 py-12">
-        <h2 className="text-2xl font-semibold tracking-tight">Frequently Asked Questions</h2>
-        <p className="mt-2 text-slate-600">Quick answers to common questions.</p>
+    <section id="faq" className="scroll-mt-20 bg-white py-24">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <div className="mx-auto max-w-3xl px-4">
+        <p className="text-center text-xs font-semibold tracking-widest text-orange-deep uppercase">FAQ</p>
+        <h2 className="mt-3 text-center text-4xl font-black tracking-tight text-ink md:text-5xl">
+          Frequently Asked Questions
+        </h2>
 
-        <div className="mt-6 space-y-2">
-          {FAQS.map((item, i) => (
-            <div key={i} className="rounded-2xl border bg-slate-50 overflow-hidden">
-              <button
-                className="flex w-full items-center justify-between px-5 py-4 text-left text-sm font-semibold text-slate-900 hover:bg-slate-100"
-                onClick={() => setOpen(open === i ? null : i)}
-                aria-expanded={open === i}
-              >
-                <span>{item.q}</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className={`h-5 w-5 shrink-0 text-slate-500 transition-transform ${open === i ? "rotate-180" : ""}`}
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth={2}
+        <Reveal className="mt-12 border-t border-ink/10">
+          {FAQS.map((item, i) => {
+            const isOpen = open === i;
+            const panelId = `faq-panel-${i}`;
+            const buttonId = `faq-button-${i}`;
+            return (
+              <div key={i} className="border-b border-ink/10">
+                <h3>
+                  <button
+                    id={buttonId}
+                    className="flex w-full items-center justify-between gap-4 py-5 text-left text-base font-semibold text-ink hover:text-navy"
+                    onClick={() => setOpen(isOpen ? null : i)}
+                    aria-expanded={isOpen}
+                    aria-controls={panelId}
+                  >
+                    <span>{item.q}</span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className={`h-5 w-5 shrink-0 text-navy transition-transform ${isOpen ? "rotate-180" : ""}`}
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                      aria-hidden="true"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+                </h3>
+                <div
+                  id={panelId}
+                  role="region"
+                  aria-labelledby={buttonId}
+                  className={`grid overflow-hidden transition-all duration-300 ease-out motion-reduce:transition-none ${
+                    isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                  }`}
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              {open === i && (
-                <div className="px-5 pb-4 text-sm text-slate-600">{item.a}</div>
-              )}
-            </div>
-          ))}
-        </div>
+                  <div className="overflow-hidden">
+                    <p className="pb-5 text-sm text-muted">{item.a}</p>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </Reveal>
       </div>
     </section>
   );

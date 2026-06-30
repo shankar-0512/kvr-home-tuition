@@ -1,268 +1,162 @@
+import Image from "next/image";
 import { Testimonials } from "./Testimonials";
-import { EnquiryFormClientOnly } from "./EnquiryFormClientOnly";
-import { MobileNav } from "./MobileNav";
+import { EnquiryForm } from "./EnquiryForm";
 import { FAQ } from "./FAQ";
-
+import { YouTubeTeaser } from "./YouTubeTeaser";
+import { Header } from "./Header";
+import { Footer } from "./Footer";
+import { WhatsAppButton } from "./WhatsAppButton";
+import { StickyMobileCTA } from "./StickyMobileCTA";
+import { ScrollSpy } from "./ScrollSpy";
+import { Reveal } from "./Reveal";
 
 export function HomePage() {
   return (
-    <div className="min-h-screen bg-white text-slate-900">
-      <AnnouncementBar />
+    <div className="min-h-screen bg-white text-ink">
+      <ScrollSpy />
       <Header />
       <main>
         <Hero />
-        <TrustStrip />
+        <Programme />
+        <HowItWorks />
         <Testimonials />
-        <Sections />
+        <YouTubeTeaser />
         <FAQ />
+        <CtaBand />
         <Contact />
       </main>
       <Footer />
-      <WhatsAppFloatingButton />
+      <WhatsAppButton />
       <StickyMobileCTA />
     </div>
   );
 }
 
-function AnnouncementBar() {
-  return (
-    <div className="sticky top-0 z-[60] w-full bg-[#1F3A5F] text-white">
-      <div className="mx-auto flex max-w-6xl items-center gap-3 overflow-hidden px-4 py-2 text-sm">
-        <span className="shrink-0 rounded-full bg-white/15 px-3 py-1 text-xs font-semibold">
-          Admissions Open
-        </span>
-
-        <div className="relative flex-1 overflow-hidden">
-          <div className="whitespace-nowrap will-change-transform motion-reduce:animate-none animate-marquee">
-            <span className="mr-10">
-              Admissions open for 2026/27 academic year • Limited slots available •
-              Home Tuition (Chennai) & Online • Weekly feedback
-            </span>
-            <span className="mr-10">
-              Admissions open for 2026/27 academic year • Limited slots available •
-              Home Tuition (Chennai) & Online • Weekly feedback
-            </span>
-          </div>
-        </div>
-
-        <a
-          href="#contact"
-          className="shrink-0 rounded-full bg-[#F28C28] px-3 py-1 text-xs font-semibold hover:brightness-95"
-        >
-          Enquire
-        </a>
-      </div>
-    </div>
-  );
-}
-
-function Header() {
-  return (
-    <header className="sticky top-10 z-50 border-b bg-white/80 backdrop-blur">
-      <div className="relative mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-        <div className="flex items-center gap-3">
-          <img
-            src="/logo.jpeg"
-            alt="KVR Brain Point logo"
-            className="h-14 w-auto"
-          />
-          <div className="leading-tight">
-            <div className="font-semibold">KVR Brain Point</div>
-            <div className="text-xs text-slate-500">Home Tuition & Online Coaching</div>
-          </div>
-        </div>
-
-        <nav className="hidden items-center gap-6 text-sm md:flex">
-          <a className="text-slate-600 hover:text-slate-900" href="#subjects">Subjects</a>
-          <a className="text-slate-600 hover:text-slate-900" href="#how">How it works</a>
-          <a className="text-slate-600 hover:text-slate-900" href="#faq">FAQ</a>
-          <a className="text-slate-600 hover:text-slate-900" href="#contact">Enquiry</a>
-        </nav>
-
-        <a
-          href="#contact"
-          className="hidden md:inline-flex rounded-xl bg-[#1F3A5F] px-4 py-2 text-sm font-medium text-white hover:brightness-95"
-        >
-          Get a call back
-        </a>
-
-        <MobileNav />
-      </div>
-    </header>
-  );
-}
-
 function Hero() {
   return (
-    <section className="mx-auto max-w-6xl px-4 pt-8 pb-10 md:pt-12">
-      <div className="grid items-center gap-10 md:grid-cols-2">
-        <div>
-          <p className="inline-flex items-center rounded-full border px-3 py-1 text-xs text-slate-600">
-            Personal coaching • Doubt clearing • Weekly practice
-          </p>
+    <section id="top" className="clip-diagonal-down relative bg-gradient-to-br from-navy-deep via-navy to-orange pb-32 pt-16 md:pt-20">
+      <div className="mx-auto max-w-6xl px-4">
+        <span className="animate-fade-in-up inline-flex items-center rounded-full bg-orange px-3 py-1 text-xs font-semibold text-ink">
+          Admissions open for 2026/27
+        </span>
 
-          <h1 className="mt-4 text-4xl font-semibold tracking-tight md:text-5xl">
-            Home tuition that builds confidence — not just marks.
-          </h1>
+        <h1 className="animate-fade-in-up mt-6 max-w-3xl text-5xl font-black leading-[1.03] tracking-tight text-white [animation-delay:80ms] md:text-7xl">
+          Home tuition that builds <span className="text-orange">confidence</span>, not just marks.
+        </h1>
 
-          <p className="mt-4 text-slate-600">
-            Clear explanations, regular practice, and a simple study plan. Available as online classes
-            or offline home visits (Chennai).
-          </p>
+        <p className="animate-fade-in-up mt-6 max-w-xl text-lg text-white/80 [animation-delay:160ms]">
+          Clear explanations, regular practice, and a simple study plan. Online classes
+          across Tamil Nadu &amp; India, or offline home visits across Chennai.
+        </p>
 
-          <div className="mt-6 flex flex-wrap gap-3">
-            <a
-              href="#contact"
-              className="rounded-xl bg-[#1F3A5F] px-5 py-3 text-sm font-medium text-white hover:brightness-95"
-            >
-              Enquire now
-            </a>
-            <a
-              href="#subjects"
-              className="rounded-xl border px-5 py-3 text-sm font-medium text-slate-700 hover:bg-[#1F3A5F]/10"
-            >
-              View subjects
-            </a>
-          </div>
-
-          <div className="mt-6 grid grid-cols-2 gap-3 text-sm text-slate-600 md:grid-cols-3">
-            <Stat title="1–1 or small group" value="Flexible" />
-            <Stat title="Online / Offline" value="Both" />
-            <Stat title="Weekly feedback" value="Parents" />
-          </div>
+        <div className="animate-fade-in-up mt-8 flex flex-wrap gap-4 [animation-delay:240ms]">
+          <a
+            href="#contact"
+            className="rounded-full bg-white px-7 py-3.5 text-sm font-bold text-navy transition hover:bg-orange hover:text-ink"
+          >
+            Enquire now
+          </a>
+          <a
+            href="#subjects"
+            className="rounded-full border border-white/30 px-7 py-3.5 text-sm font-semibold text-white transition hover:bg-white/10"
+          >
+            View subjects
+          </a>
         </div>
 
-        <div className="rounded-3xl border bg-slate-50 p-6 shadow-sm">
-          <h2 className="text-xl font-semibold">Academic Head</h2>
+        <div className="animate-fade-in-up mt-12 flex flex-wrap gap-x-10 gap-y-4 border-t border-white/15 pt-6 [animation-delay:320ms]">
+          <HeroStat value="6+" label="Years teaching" />
+          <HeroStat value="3" label="Boards covered" />
+          <HeroStat value="1:1" label="Or small group" />
+        </div>
 
-          <div className="mt-4 flex items-start gap-4">
-            <img
-              src="/varshan.jpeg"
-              alt="Varshan – Tutor"
-              className="h-24 w-24 rounded-2xl object-cover border-2 border-[#1F3A5F]"
+        <div className="animate-fade-in-up mt-12 flex max-w-md items-center gap-4 rounded-2xl bg-white p-5 shadow-xl [animation-delay:400ms]">
+          <Image
+            src="/varshan.jpeg"
+            alt="Varshan – Tutor"
+            width={300}
+            height={300}
+            priority
+            className="h-16 w-16 shrink-0 rounded-xl object-cover"
+          />
+          <div>
+            <div className="text-xs font-semibold tracking-wide text-orange-deep uppercase">Academic Head</div>
+            <div className="text-base font-bold text-ink">Varshan</div>
+            <div className="text-xs text-muted">M.Sc. Physics &middot; 6+ yrs &middot; State, CBSE, ICSE</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function HeroStat(props: { value: string; label: string }) {
+  return (
+    <div>
+      <span className="text-2xl font-black text-orange">{props.value}</span>
+      <span className="ml-2 text-sm text-white/70">{props.label}</span>
+    </div>
+  );
+}
+
+function Programme() {
+  return (
+    <section id="subjects" className="scroll-mt-20 bg-white py-24">
+      <div className="mx-auto max-w-6xl px-4">
+        <div className="max-w-2xl">
+          <p className="text-xs font-semibold tracking-widest text-orange-deep uppercase">The Programme</p>
+          <h2 className="mt-3 text-4xl font-black tracking-tight text-ink md:text-5xl">
+            Subjects &amp; Classes
+          </h2>
+        </div>
+
+        <div className="mt-16 space-y-16">
+          <Reveal>
+            <ProgrammeRow
+              num="01"
+              title="Classes 1–10 (All Subjects)"
+              items={[
+                "Maths, Science, English and more",
+                "Strong fundamentals",
+                "Exam-focused preparation",
+              ]}
             />
-
-            <div className="text-sm text-slate-700">
-              <div className="font-semibold text-base">Varshan</div>
-              <div className="text-slate-600">
-                M.Sc. Physics • Currently pursuing B.Ed.
-              </div>
-            </div>
-          </div>
-
-          <p className="mt-4 text-sm text-slate-600">
-            An experienced home tutor focused on building strong foundations,
-            confidence, and steady academic improvement.
-          </p>
-
-          <div className="mt-4 space-y-3 text-sm text-slate-700">
-            <div>
-              <span className="font-semibold">Experience:</span>{" "}
-              Over 6 years of teaching school students
-            </div>
-
-            <div>
-              <span className="font-semibold">Boards taught:</span>{" "}
-              State Board, CBSE, ICSE
-            </div>
-
-          </div>
-
-          <div className="mt-5 rounded-xl bg-slate-100 px-4 py-3 text-sm text-slate-700">
-            Individual attention • Structured learning • Consistent results
-          </div>
-
+          </Reveal>
+          <Reveal delayMs={100}>
+            <ProgrammeRow
+              num="02"
+              title="Classes 11–12"
+              items={[
+                "Physics",
+                "Computer Science",
+                "Board exam & concept-focused coaching",
+              ]}
+            />
+          </Reveal>
         </div>
       </div>
     </section>
   );
 }
 
-function Stat(props: { title: string; value: string }) {
+function ProgrammeRow(props: { num: string; title: string; items: string[] }) {
   return (
-    <div className="rounded-2xl border bg-white px-4 py-3">
-      <div className="text-xs text-slate-500">{props.title}</div>
-      <div className="mt-1 font-semibold">{props.value}</div>
-    </div>
-  );
-}
+    <div className="relative grid gap-6 border-t border-ink/10 pt-10 md:grid-cols-12 md:items-start">
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute -top-2 left-0 select-none text-[7rem] font-black leading-none text-orange/[0.10] md:text-[9rem]"
+      >
+        {props.num}
+      </span>
 
-function TrustStrip() {
-  return (
-    <section className="border-t bg-white">
-      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-3 px-4 py-8 md:grid-cols-3">
-        <TrustCard
-          title="Concept clarity"
-          desc="Simple explanations + step-by-step practice."
-        />
-        <TrustCard
-          title="Regular practice"
-          desc="Weekly tests and targeted revision."
-        />
-        <TrustCard
-          title="Reliable updates"
-          desc="Clear progress feedback for parents."
-        />
-      </div>
-    </section>
-  );
-}
-
-function TrustCard(props: { title: string; desc: string }) {
-  return (
-    <div className="rounded-3xl border bg-slate-50 p-6">
-      <div className="font-semibold">{props.title}</div>
-      <div className="mt-2 text-sm text-slate-600">{props.desc}</div>
-    </div>
-  );
-}
-
-function Sections() {
-  return (
-    <section className="mx-auto max-w-6xl px-4 py-12">
-      <div id="subjects" className="scroll-mt-24">
-        <h2 className="text-2xl font-semibold tracking-tight">Subjects & Classes</h2>
-
-        <div className="mt-6 grid gap-4 md:grid-cols-2">
-          <Card
-            title="Classes 1–10 (All Subjects)"
-            items={[
-              "Maths, Science, English and more",
-              "Strong fundamentals",
-              "Exam-focused preparation",
-            ]}
-          />
-          <Card
-            title="Classes 11–12"
-            items={[
-              "Physics",
-              "Computer Science",
-              "Board exam & concept-focused coaching",
-            ]}
-          />
-        </div>
+      <div className="relative md:col-span-4">
+        <div className="text-2xl font-bold text-ink">{props.title}</div>
       </div>
 
-      <div id="how" className="mt-12 scroll-mt-24">
-        <h2 className="text-2xl font-semibold tracking-tight">How it works</h2>
-        <div className="mt-6 grid gap-4 md:grid-cols-3">
-          <Step n="1" title="Enquire" desc="Tell us class, subject, and online/offline preference." />
-          <Step n="2" title="Free call" desc="We understand the student level and suggest a plan." />
-          <Step n="3" title="Start sessions" desc="Fixed schedule, practice, and regular updates." />
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Card(props: { title: string; items: string[] }) {
-  return (
-    <div className="rounded-3xl border bg-white p-6 shadow-sm">
-      <div className="text-lg font-semibold">{props.title}</div>
-      <ul className="mt-3 space-y-2 text-sm text-slate-600">
+      <ul className="relative grid gap-3 text-sm text-muted sm:grid-cols-2 md:col-span-8">
         {props.items.map((x) => (
-          <li key={x} className="flex gap-2">
-            <span className="mt-1 inline-block h-2 w-2 rounded-full bg-[#F28C28]" aria-hidden="true" />
+          <li key={x} className="flex gap-2.5">
+            <span className="mt-1.5 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-orange" aria-hidden="true" />
             <span>{x}</span>
           </li>
         ))}
@@ -271,116 +165,109 @@ function Card(props: { title: string; items: string[] }) {
   );
 }
 
-function Step(props: { n: string; title: string; desc: string }) {
+function HowItWorks() {
   return (
-    <div className="rounded-3xl border bg-slate-50 p-6">
-      <div className="text-sm font-semibold text-slate-900">Step {props.n}</div>
-      <div className="mt-2 text-lg font-semibold">{props.title}</div>
-      <div className="mt-2 text-sm text-slate-600">{props.desc}</div>
-    </div>
-  );
-}
+    <section id="how" className="scroll-mt-20 bg-[#F5F7FA] py-24">
+      <div className="mx-auto max-w-6xl px-4">
+        <p className="text-xs font-semibold tracking-widest text-orange-deep uppercase">Getting started</p>
+        <h2 className="mt-3 text-4xl font-black tracking-tight text-ink md:text-5xl">How it works</h2>
 
-function Contact() {
-  return (
-    <section id="contact" className="border-t bg-white">
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 md:grid-cols-2">
-        <div>
-          <h2 className="text-2xl font-semibold tracking-tight">Enquiry</h2>
-          <p className="mt-2 text-slate-600">
-            Share what you need and we'll contact you soon.
-          </p>
-
-          <div className="mt-6 rounded-3xl border bg-slate-50 p-6">
-            <EnquiryFormClientOnly />
-          </div>
-
-          <div className="mt-6 text-sm text-slate-600">
-            <div className="font-semibold text-slate-900">Contact</div>
-            <div className="mt-1">Phone: +91 8668194510</div>
-            <div>Email: kvrchennaihometuition@gmail.com</div>
-          </div>
-        </div>
-
-        <div className="rounded-3xl border bg-white p-6 shadow-sm">
-          <h3 className="text-lg font-semibold">Online & Offline</h3>
-          <p className="mt-2 text-sm text-slate-600">
-            Online classes via Google Meet/Zoom with screen sharing and notes.
-            Offline home visits depend on location and availability.
-          </p>
-
-          <div className="mt-6 rounded-2xl bg-slate-50 p-4 text-sm text-slate-600">
-            <div className="font-semibold text-slate-900">Areas covered (offline)</div>
-            <div className="mt-1">Chennai</div>
-          </div>
-
-          <div className="mt-6 rounded-2xl bg-slate-50 p-4 text-sm text-slate-600">
-            <div className="font-semibold text-slate-900">Timings</div>
-            <div className="mt-1">6:00 AM – 9:00 PM (7 days a week)</div>
-          </div>
+        <div className="mt-14 grid gap-10 sm:grid-cols-3">
+          <Reveal>
+            <HowStep num="01" title="Enquire" desc="Tell us class, subject, and online/offline preference." />
+          </Reveal>
+          <Reveal delayMs={100}>
+            <HowStep num="02" title="Free call" desc="We understand the student level and suggest a plan." />
+          </Reveal>
+          <Reveal delayMs={200}>
+            <HowStep num="03" title="Start sessions" desc="Fixed schedule, practice, and regular updates." />
+          </Reveal>
         </div>
       </div>
     </section>
   );
 }
 
-function Footer() {
+function HowStep(props: { num: string; title: string; desc: string }) {
   return (
-    <footer className="border-t bg-white pb-20 md:pb-0">
-      <div className="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-8 text-sm text-slate-600 md:flex-row md:items-center md:justify-between">
-        <div>© {new Date().getFullYear()} KVR Brain Point</div>
-        <div className="flex gap-4">
-          <a className="hover:text-slate-900" href="#subjects">Subjects</a>
-          <a className="hover:text-slate-900" href="#faq">FAQ</a>
-          <a className="hover:text-slate-900" href="#contact">Enquiry</a>
-          <a className="hover:text-slate-900" href="/admin">Admin</a>
-        </div>
-      </div>
-    </footer>
-  );
-}
-
-function WhatsAppFloatingButton() {
-  const phone = "918668194510";
-  const message = encodeURIComponent("Hi! I want to enquire about tuition.");
-  const href = `https://wa.me/${phone}?text=${message}`;
-
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noreferrer"
-      aria-label="Chat on WhatsApp"
-      className="
-        fixed right-5 z-50
-        bottom-20 md:bottom-5
-        flex h-14 w-14 items-center justify-center
-        rounded-full bg-[#25D366]
-        shadow-lg hover:brightness-95
-      "
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 32 32"
-        fill="white"
-        className="h-7 w-7"
+    <div className="relative pt-16">
+      <span
         aria-hidden="true"
+        className="pointer-events-none absolute left-0 top-0 select-none text-[6rem] font-black leading-none text-orange/[0.12]"
       >
-        <path d="M19.11 17.19c-.29-.15-1.72-.85-1.99-.95-.27-.1-.47-.15-.67.15-.2.29-.77.95-.94 1.15-.17.2-.35.22-.64.07-.29-.15-1.24-.46-2.36-1.47-.87-.77-1.46-1.72-1.63-2.01-.17-.29-.02-.45.13-.6.13-.13.29-.35.44-.52.15-.17.2-.29.3-.49.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.48-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.29-1.04 1.02-1.04 2.49s1.07 2.9 1.22 3.1c.15.2 2.11 3.23 5.11 4.53.71.31 1.27.49 1.7.63.71.22 1.36.19 1.87.11.57-.09 1.72-.7 1.97-1.37.24-.67.24-1.24.17-1.37-.07-.12-.27-.2-.56-.35zM16.03 3C9.42 3 4 8.42 4 15.03c0 2.64.87 5.08 2.34 7.05L5 29l7.1-1.87c1.9 1.04 4.08 1.64 6.38 1.64 6.61 0 12.03-5.42 12.03-12.03C30.51 8.42 22.64 3 16.03 3z" />
-      </svg>
-    </a>
-  );
-}
-
-function StickyMobileCTA() {
-  return (
-    <div className="fixed bottom-0 left-0 right-0 z-40 border-t bg-white px-4 py-3 md:hidden">
-      <a
-        href="#contact"
-        className="flex w-full items-center justify-center rounded-xl bg-[#1F3A5F] px-4 py-3 text-sm font-semibold text-white hover:brightness-95"
-      >
-        Enquire now →
-      </a>
+        {props.num}
+      </span>
+      <div className="relative text-lg font-bold text-ink">{props.title}</div>
+      <div className="relative mt-2 text-sm text-muted">{props.desc}</div>
     </div>
   );
 }
+
+function CtaBand() {
+  return (
+    <section className="bg-orange py-16">
+      <Reveal className="mx-auto max-w-6xl px-4 text-center">
+        <h2 className="text-3xl font-black tracking-tight text-ink md:text-4xl">
+          Ready to get started?
+        </h2>
+        <p className="mt-3 text-ink/70">
+          Tell us the class and subject - we&apos;ll call you back within 24 hours.
+        </p>
+        <a
+          href="#contact"
+          className="mt-7 inline-flex rounded-full bg-navy px-7 py-3.5 text-sm font-bold text-white transition hover:bg-navy-deep"
+        >
+          Enquire now →
+        </a>
+      </Reveal>
+    </section>
+  );
+}
+
+function Contact() {
+  return (
+    <section id="contact" className="scroll-mt-20 bg-white py-24">
+      <div className="mx-auto grid max-w-6xl gap-10 px-4 md:grid-cols-5">
+        <Reveal className="md:col-span-3">
+          <p className="text-xs font-semibold tracking-widest text-orange-deep uppercase">Enquiry</p>
+          <h2 className="mt-3 text-4xl font-black tracking-tight text-ink">Tell us what you need</h2>
+          <p className="mt-3 text-muted">Share a few details and we&apos;ll contact you soon.</p>
+
+          <div className="mt-8 rounded-3xl border border-ink/10 bg-[#FAF9FF] p-6">
+            <EnquiryForm />
+          </div>
+
+          <div className="mt-6 text-sm text-muted">
+            <div className="font-semibold text-ink">Contact</div>
+            <div className="mt-1">Phone: +91 8668194510</div>
+            <div>Email: kvrchennaihometuition@gmail.com</div>
+          </div>
+        </Reveal>
+
+        <Reveal delayMs={100} className="rounded-3xl bg-navy p-8 text-white md:col-span-2">
+          <h3 className="text-xl font-bold">Online &amp; Offline</h3>
+          <p className="mt-2 text-sm text-white/80">
+            Online classes via Google Meet/Zoom with screen sharing and notes.
+            Offline home visits depend on location and availability.
+          </p>
+
+          <div className="mt-6 rounded-2xl bg-white/10 p-4 text-sm">
+            <div className="font-semibold text-white">Areas covered (offline)</div>
+            <div className="mt-1 text-white/70">Chennai</div>
+          </div>
+
+          <div className="mt-4 rounded-2xl bg-white/10 p-4 text-sm">
+            <div className="font-semibold text-white">Areas covered (online)</div>
+            <div className="mt-1 text-white/70">Tamil Nadu &amp; across India</div>
+          </div>
+
+          <div className="mt-4 rounded-2xl bg-white/10 p-4 text-sm">
+            <div className="font-semibold text-white">Timings</div>
+            <div className="mt-1 text-white/70">6:00 AM – 9:00 PM (7 days a week)</div>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+

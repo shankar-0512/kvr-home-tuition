@@ -112,7 +112,7 @@ export async function POST(req: Request) {
     const to = process.env.NOTIFY_TO_EMAIL!;
     const from = process.env.NOTIFY_FROM_EMAIL!;
 
-    const subject = `New Enquiry — ${body.name} (${body.class}, ${body.board})`;
+    const subject = `New Enquiry - ${body.name} (${body.class}, ${body.board})`;
 
     const html = `
       <div style="font-family:Arial,sans-serif;line-height:1.4">
@@ -134,7 +134,7 @@ export async function POST(req: Request) {
       </div>
     `;
 
-    // Awaited — Vercel terminates the serverless runtime immediately after the
+    // Awaited - Vercel terminates the serverless runtime immediately after the
     // response is sent, so fire-and-forget promises are killed mid-flight.
     // Email failure is still non-fatal: the enquiry is already saved to DB.
     await resend.emails

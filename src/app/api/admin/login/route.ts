@@ -72,7 +72,7 @@ export async function POST(req: Request) {
   await clearRateLimit(rateLimitKey);
 
   const res = NextResponse.json({ ok: true });
-  // sameSite:"strict" also provides CSRF protection for all admin endpoints —
+  // sameSite:"strict" also provides CSRF protection for all admin endpoints -
   // cross-origin requests will not include this cookie.
   res.cookies.set(adminCookie.name, createAdminCookieValue(), {
     httpOnly: true,
