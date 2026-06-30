@@ -8,6 +8,7 @@ export type Video = {
   title: string;
   featured: boolean;
   sort_order: number;
+  standards: string[];
 };
 
 // Cache videos for 1 hour. Invalidated immediately when admin adds/deletes/features
@@ -22,7 +23,7 @@ export const getVideos = unstable_cache(
 
     const { data } = await supabase
       .from("videos")
-      .select("id, created_at, youtube_id, title, featured, sort_order")
+      .select("id, created_at, youtube_id, title, featured, sort_order, standards")
       .order("featured", { ascending: false })
       .order("sort_order", { ascending: true })
       .order("created_at", { ascending: false });

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { getVideos } from "@/lib/videosData";
-import { YouTubeEmbed } from "@/components/YouTubeEmbed";
+import { VideoGallery } from "@/components/VideoGallery";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
@@ -59,25 +59,7 @@ export default async function VideosPage() {
 
         <section className="bg-white py-20">
           <div className="mx-auto max-w-6xl px-4">
-            {videos.length ? (
-              <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-                {videos.map((v) => (
-                  <div key={v.id}>
-                    <YouTubeEmbed youtubeId={v.youtube_id} title={v.title} />
-                    <div className="mt-3 flex items-start justify-between gap-3">
-                      <div className="text-sm font-semibold text-ink">{v.title}</div>
-                      {v.featured && (
-                        <span className="shrink-0 rounded-full bg-orange px-2.5 py-0.5 text-[10px] font-bold text-ink uppercase">
-                          Featured
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <p className="text-muted">No videos yet - check back soon.</p>
-            )}
+            <VideoGallery videos={videos} />
           </div>
         </section>
       </main>

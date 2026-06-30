@@ -6,6 +6,7 @@ import Image from "next/image";
 import { LogoutButton } from "@/components/LogoutButton";
 import { StatusSelect } from "@/components/StatusSelect";
 import { DeleteEnquiryButton } from "@/components/DeleteEnquiryButton";
+import { STANDARDS } from "@/lib/standards";
 
 const fieldClass =
   "w-full rounded-xl border border-ink/10 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-navy/20";
@@ -257,6 +258,23 @@ export default async function AdminDashboard() {
                   placeholder="Video title"
                 />
 
+                <fieldset>
+                  <legend className="text-xs font-semibold text-ink">Standards</legend>
+                  <div className="mt-2 grid grid-cols-4 gap-2">
+                    {STANDARDS.map((s) => (
+                      <label key={s} className="flex items-center gap-1.5 text-xs text-ink">
+                        <input
+                          type="checkbox"
+                          name="standards"
+                          value={s}
+                          className="h-4 w-4 rounded border-ink/20 text-orange focus:ring-orange/30"
+                        />
+                        {s}
+                      </label>
+                    ))}
+                  </div>
+                </fieldset>
+
                 <label className="flex items-center gap-2 text-sm text-ink">
                   <input
                     type="checkbox"
@@ -304,6 +322,19 @@ export default async function AdminDashboard() {
                           <div className="mt-1 text-xs text-muted">
                             {new Date(v.created_at).toLocaleString()}
                           </div>
+
+                          {v.standards?.length > 0 && (
+                            <div className="mt-1.5 flex flex-wrap gap-1">
+                              {v.standards.map((s: string) => (
+                                <span
+                                  key={s}
+                                  className="rounded-full bg-navy/10 px-2 py-0.5 text-[10px] font-semibold text-navy"
+                                >
+                                  {s}
+                                </span>
+                              ))}
+                            </div>
+                          )}
 
                           <div className="mt-2 flex items-center gap-3">
                             {!v.featured && (

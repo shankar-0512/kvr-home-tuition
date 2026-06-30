@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { verifyAdminCookieValue, adminCookie } from "@/lib/adminAuth";
 import { extractYouTubeId } from "@/lib/youtube";
+import { isStandard } from "@/lib/standards";
 import { revalidatePath } from "next/cache";
 
 async function requireAdmin() {
@@ -21,6 +22,7 @@ export async function POST(req: Request) {
   const youtubeUrl = String(form.get("youtubeUrl") ?? "").trim();
   const title = String(form.get("title") ?? "").trim();
   const featured = form.get("featured") === "on";
+  const standards = form.getAll("standards").map(String).filter(isStandard);
 
   if (!youtubeUrl || !title) {
     return NextResponse.json({ ok: false, error: "Missing fields" }, { status: 400 });
@@ -46,7 +48,7 @@ export async function POST(req: Request) {
   }
 
   const { error } = await supabase.from("videos").insert([
-    { youtube_id: youtubeId, title, featured },
+    { youtube_id: youtubeId, title, featured, standards },
   ]);
 
   if (error) {
