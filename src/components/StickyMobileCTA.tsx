@@ -4,10 +4,12 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 
 export function StickyMobileCTA() {
-  const [visible, setVisible] = useState(false);
+  // Visible by default. Only the homepage Hero (#top) has its own "Enquire now"
+  // button, so that's the only section this bar should hide behind.
+  const [visible, setVisible] = useState(true);
 
   useEffect(() => {
-    const hero = document.querySelector("main > section");
+    const hero = document.getElementById("top");
     if (!hero) return;
 
     const observer = new IntersectionObserver(([entry]) => {

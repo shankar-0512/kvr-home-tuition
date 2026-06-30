@@ -7,7 +7,7 @@ export function Footer() {
         <div>
           <div className="text-xl font-bold">KVR Brain Point</div>
           <p className="mt-3 max-w-xs text-sm text-white/50">
-            Home tuition in Chennai and online coaching across Tamil Nadu &amp; India
+            Home tuition in Chennai and online coaching across Tamil Nadu
             for Classes 1–12 - concept clarity, regular practice, and weekly feedback
             for parents.
           </p>

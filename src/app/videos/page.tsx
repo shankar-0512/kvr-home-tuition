@@ -9,11 +9,11 @@ import { StickyMobileCTA } from "@/components/StickyMobileCTA";
 export const metadata: Metadata = {
   title: "Videos | KVR Brain Point - Home Tuition Chennai & Online Coaching",
   description:
-    "Watch lessons and tips from KVR Brain Point on YouTube - home tuition in Chennai and online coaching across Tamil Nadu & India for Classes 1–12.",
+    "Watch lessons and tips from KVR Brain Point on YouTube - home tuition in Chennai and online coaching across Tamil Nadu for Classes 1–12.",
   keywords: [
     "KVR Brain Point YouTube",
     "home tuition Chennai videos",
-    "online tuition India lessons",
+    "online tuition Tamil Nadu lessons",
     "CBSE ICSE State Board video lessons",
   ],
   alternates: {
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Videos | KVR Brain Point",
     description:
-      "Watch lessons and tips from KVR Brain Point on YouTube - home tuition in Chennai and online coaching across Tamil Nadu & India.",
+      "Watch lessons and tips from KVR Brain Point on YouTube - home tuition in Chennai and online coaching across Tamil Nadu.",
     url: "/videos",
     siteName: "KVR Brain Point",
     type: "website",

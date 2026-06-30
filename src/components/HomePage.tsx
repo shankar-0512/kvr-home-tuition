@@ -46,7 +46,7 @@ function Hero() {
 
         <p className="animate-fade-in-up mt-6 max-w-xl text-lg text-white/80 [animation-delay:160ms]">
           Clear explanations, regular practice, and a simple study plan. Online classes
-          across Tamil Nadu &amp; India, or offline home visits across Chennai.
+          across Tamil Nadu, or offline home visits across Chennai.
         </p>
 
         <div className="animate-fade-in-up mt-8 flex flex-wrap gap-4 [animation-delay:240ms]">
@@ -258,7 +258,7 @@ function Contact() {
 
           <div className="mt-4 rounded-2xl bg-white/10 p-4 text-sm">
             <div className="font-semibold text-white">Areas covered (online)</div>
-            <div className="mt-1 text-white/70">Tamil Nadu &amp; across India</div>
+            <div className="mt-1 text-white/70">Tamil Nadu</div>
           </div>
 
           <div className="mt-4 rounded-2xl bg-white/10 p-4 text-sm">

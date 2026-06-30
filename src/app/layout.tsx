@@ -13,18 +13,17 @@ export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: "KVR Brain Point | Home Tuition & Online Coaching in Chennai",
   description:
-    "Personalised home tuition in Chennai and online coaching across Tamil Nadu & India for Classes 1–12. Concept clarity, regular practice, and weekly feedback for parents.",
+    "Personalised home tuition in Chennai and online coaching across Tamil Nadu for Classes 1–12. Concept clarity, regular practice, and weekly feedback for parents.",
   keywords: [
     "home tuition Chennai",
     "home tutor Chennai",
     "online tuition Tamil Nadu",
-    "online coaching India",
+    "online tutor Tamil Nadu",
     "CBSE tuition Chennai",
     "ICSE tuition Chennai",
     "State Board tuition Chennai",
     "Class 10 tuition Chennai",
     "Class 12 tuition Chennai",
-    "online tutor India",
   ],
   alternates: {
     canonical: "/",
@@ -32,7 +31,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "KVR Brain Point | Home Tuition & Online Coaching in Chennai",
     description:
-      "Personalised home tuition in Chennai and online coaching across Tamil Nadu & India for Classes 1–12.",
+      "Personalised home tuition in Chennai and online coaching across Tamil Nadu for Classes 1–12.",
     url: BASE_URL,
     siteName: "KVR Brain Point",
     images: [
@@ -50,7 +49,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "KVR Brain Point | Home Tuition & Online Coaching in Chennai",
     description:
-      "Personalised home tuition in Chennai and online coaching across Tamil Nadu & India for Classes 1–12.",
+      "Personalised home tuition in Chennai and online coaching across Tamil Nadu for Classes 1–12.",
     images: ["/logo.jpeg"],
   },
 };
@@ -61,7 +60,7 @@ const jsonLd = {
   "@id": `${BASE_URL}/#organization`,
   name: "KVR Brain Point",
   description:
-    "Personalised home tuition in Chennai and online coaching across Tamil Nadu & India for Classes 1–12. Concept clarity, regular practice, and weekly feedback for parents.",
+    "Personalised home tuition in Chennai and online coaching across Tamil Nadu for Classes 1–12. Concept clarity, regular practice, and weekly feedback for parents.",
   url: BASE_URL,
   logo: `${BASE_URL}/logo.jpeg`,
   image: `${BASE_URL}/logo.jpeg`,
@@ -79,11 +78,10 @@ const jsonLd = {
     latitude: 13.0827,
     longitude: 80.2707,
   },
-  // Home visits are Chennai-only; online coaching reaches the whole state and country.
+  // Home visits are Chennai-only; online coaching reaches the whole state.
   areaServed: [
     { "@type": "City", name: "Chennai" },
     { "@type": "State", name: "Tamil Nadu" },
-    { "@type": "Country", name: "India" },
   ],
   openingHoursSpecification: {
     "@type": "OpeningHoursSpecification",
