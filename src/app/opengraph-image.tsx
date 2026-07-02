@@ -14,7 +14,7 @@ export default async function Image() {
           height: "100%",
           display: "flex",
           flexDirection: "column",
-          background: "linear-gradient(140deg, #071625 0%, #1C4269 55%, #1f4f80 100%)",
+          background: "linear-gradient(135deg, #071625 0%, #1C4269 50%, #F27630 100%)",
           padding: "128px 160px 104px",
           position: "relative",
           overflow: "hidden",
@@ -38,19 +38,6 @@ export default async function Image() {
           K
         </div>
 
-        {/* Orange circle glow */}
-        <div
-          style={{
-            position: "absolute",
-            bottom: "-240px",
-            right: "640px",
-            width: "680px",
-            height: "680px",
-            borderRadius: "50%",
-            background: "radial-gradient(circle, rgba(242,118,48,0.18) 0%, transparent 70%)",
-            display: "flex",
-          }}
-        />
 
         {/* Orange accent bar */}
         <div
