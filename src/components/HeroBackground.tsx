@@ -189,16 +189,24 @@ export function HeroBackground() {
       ctx.clearRect(0,0,w,h);
       tick++;
 
-      for (const a of atoms)     { a.x+=a.vx; a.y+=a.vy; wrap(a); drawAtom(a); }
-      for (const m of molecules) { m.x+=m.vx; m.y+=m.vy; wrap(m); drawMolecule(m); }
+      const mobile = w < 768;
 
-      for (const pend of pendulums) {
+      const activeAtoms      = mobile ? atoms.slice(0,2)      : atoms;
+      const activeMolecules  = mobile ? molecules.slice(0,1)  : molecules;
+      const activePendulums  = mobile ? pendulums.slice(0,1)  : pendulums;
+      const activeProjectiles= mobile ? projectiles.slice(0,1): projectiles;
+      const activeParticles  = mobile ? particles.slice(0,10) : particles;
+
+      for (const a of activeAtoms)     { a.x+=a.vx; a.y+=a.vy; wrap(a); drawAtom(a); }
+      for (const m of activeMolecules) { m.x+=m.vx; m.y+=m.vy; wrap(m); drawMolecule(m); }
+
+      for (const pend of activePendulums) {
         pend.x+=pend.vx; pend.y+=pend.vy;
         wrap(pend, 100);
         drawPendulum(pend);
       }
 
-      for (const proj of projectiles) {
+      for (const proj of activeProjectiles) {
         proj.ox+=proj.vdx; proj.oy+=proj.vdy;
         wrap({ x:proj.ox, y:proj.oy, vx:proj.vdx, vy:proj.vdy }, 120);
         proj.t+=0.35;
@@ -210,7 +218,7 @@ export function HeroBackground() {
         drawProjectile(proj, bx, by);
       }
 
-      for (const p of particles) {
+      for (const p of activeParticles) {
         p.x+=p.vx; p.y+=p.vy; p.rot+=p.rotSpeed;
         wrap(p,60);
         ctx.save();

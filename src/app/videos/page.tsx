@@ -5,6 +5,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { StickyMobileCTA } from "@/components/StickyMobileCTA";
+import { HeroBackground } from "@/components/HeroBackground";
 
 export const metadata: Metadata = {
   title: "Videos | KVR Brain Point - Home Tuition Chennai & Online Coaching",
@@ -38,7 +39,8 @@ export default async function VideosPage() {
 
       <main>
         <section className="clip-diagonal-down relative bg-gradient-to-br from-navy-deep via-navy to-orange pb-28 pt-16 md:pt-20">
-          <div className="mx-auto max-w-6xl px-4">
+          <HeroBackground />
+          <div className="relative mx-auto max-w-6xl px-4">
             <p className="text-xs font-semibold tracking-wide text-orange uppercase">YouTube Channel</p>
             <h1 className="mt-4 max-w-2xl text-4xl font-black leading-[1.05] tracking-tight text-white md:text-6xl">
               Videos from KVR Brain Point
