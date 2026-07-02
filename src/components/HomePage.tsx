@@ -8,7 +8,8 @@ import { Footer } from "./Footer";
 import { WhatsAppButton } from "./WhatsAppButton";
 import { StickyMobileCTA } from "./StickyMobileCTA";
 import { ScrollSpy } from "./ScrollSpy";
-import { Reveal } from "./Reveal";
+import { Reveal } from "./Reveal"
+import { HeroBackground } from "./HeroBackground";
 
 export function HomePage() {
   return (
@@ -35,7 +36,8 @@ export function HomePage() {
 function Hero() {
   return (
     <section id="top" className="clip-diagonal-down relative bg-gradient-to-br from-navy-deep via-navy to-orange pb-32 pt-16 md:pt-20">
-      <div className="mx-auto max-w-6xl px-4">
+      <HeroBackground />
+      <div className="relative mx-auto max-w-6xl px-4">
         <span className="animate-fade-in-up inline-flex items-center rounded-full bg-orange px-3 py-1 text-xs font-semibold text-ink">
           Admissions open for 2026/27
         </span>
