@@ -263,7 +263,7 @@ function Contact() {
 
           <div className="mt-4 rounded-2xl bg-white/10 p-4 text-sm">
             <div className="font-semibold text-white">Timings</div>
-            <div className="mt-1 text-white/70">6:00 AM – 9:00 PM (7 days a week)</div>
+            <div className="mt-1 text-white/70">3:00 PM – 9:30 PM (7 days a week)</div>
           </div>
         </Reveal>
       </div>

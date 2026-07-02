@@ -7,7 +7,7 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
-const BASE_URL = "https://kvr-home-tuition.vercel.app";
+const BASE_URL = "https://www.kvrbrainpoint.in";
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
@@ -86,8 +86,8 @@ const jsonLd = {
   openingHoursSpecification: {
     "@type": "OpeningHoursSpecification",
     dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-    opens: "06:00",
-    closes: "21:00",
+    opens: "15:00",
+    closes: "21:30",
   },
 };
 
