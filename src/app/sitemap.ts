@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-const BASE_URL = "https://kvr-home-tuition.vercel.app";
+const BASE_URL = "https://www.kvrbrainpoint.in";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
