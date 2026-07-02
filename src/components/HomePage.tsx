@@ -79,7 +79,7 @@ function Hero() {
             width={300}
             height={300}
             priority
-            className="h-16 w-16 shrink-0 rounded-xl object-cover"
+            className="h-16 w-16 shrink-0 rounded-xl object-cover object-top"
           />
           <div>
             <div className="text-xs font-semibold tracking-wide text-orange-deep uppercase">Academic Head</div>

@@ -51,10 +51,6 @@ export function HeroBackground() {
                    { rx:20, ry:38, tilt: 1.1, speed:0.028, phase:Math.PI }] },
       { x: W()*0.88, y: H()*0.62, vx:-0.11, vy:-0.07, label: "N",  r: 7, opacity: 0.22,
         orbitals: [{ rx:40, ry:20, tilt:0.8,  speed:0.040, phase:Math.PI/2 }] },
-      { x: W()*0.35, y: H()*0.50, vx: 0.06, vy: 0.10, label: "Fe", r: 9, opacity: 0.20,
-        orbitals: [{ rx:46, ry:23, tilt:0.5,  speed:0.022, phase:0 },
-                   { rx:30, ry:46, tilt:-0.9, speed:0.018, phase:Math.PI/4 },
-                   { rx:58, ry:15, tilt:1.5,  speed:0.028, phase:Math.PI }] },
     ];
 
     // ── Molecules ──────────────────────────────────────────────────────────
@@ -65,9 +61,6 @@ export function HeroBackground() {
         bonds:[{ dx:-38, dy:0, label:"O" }, { dx:38, dy:0, label:"O" }] },
       { x: W()*0.90, y: H()*0.42, vx:-0.10, vy: 0.06, center:"N", opacity:0.20,
         bonds:[{ dx:-26, dy:-22, label:"H" }, { dx:26, dy:-22, label:"H" }, { dx:0, dy:28, label:"H" }] },
-      { x: W()*0.18, y: H()*0.75, vx: 0.08, vy:-0.06, center:"C", opacity:0.18,
-        bonds:[{ dx:-28, dy:-20, label:"H" }, { dx:28, dy:-20, label:"H" },
-               { dx:-20, dy: 26, label:"H" }, { dx:20, dy: 26, label:"H" }] },
     ];
 
     // ── Pendulums ──────────────────────────────────────────────────────────
@@ -84,7 +77,7 @@ export function HeroBackground() {
     ];
 
     // ── Symbols ────────────────────────────────────────────────────────────
-    const particles: Particle[] = Array.from({ length: 38 }, () => ({
+    const particles: Particle[] = Array.from({ length: 28 }, () => ({
       x: Math.random()*W(), y: Math.random()*H(),
       vx:(Math.random()-0.5)*0.28, vy:(Math.random()-0.5)*0.28,
       symbol: SYMBOLS[Math.floor(Math.random()*SYMBOLS.length)],
