@@ -2,11 +2,10 @@ import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
 export const alt = "KVR Brain Point - Home Tuition Chennai & Online Coaching Tamil Nadu";
-export const size = { width: 1200, height: 630 };
+export const size = { width: 1920, height: 1080 };
 export const contentType = "image/png";
 
 export default async function Image() {
-
   return new ImageResponse(
     (
       <div
@@ -16,19 +15,19 @@ export default async function Image() {
           display: "flex",
           flexDirection: "column",
           background: "linear-gradient(140deg, #071625 0%, #1C4269 55%, #1f4f80 100%)",
-          padding: "64px 80px 52px",
+          padding: "104px 128px 84px",
           position: "relative",
           overflow: "hidden",
-          fontFamily: "Inter, sans-serif",
+          fontFamily: "sans-serif",
         }}
       >
-        {/* Ghost numeral background decoration */}
+        {/* Ghost K background decoration */}
         <div
           style={{
             position: "absolute",
-            right: "-40px",
-            top: "-60px",
-            fontSize: "520px",
+            right: "-64px",
+            top: "-96px",
+            fontSize: "830px",
             fontWeight: 900,
             color: "rgba(255,255,255,0.025)",
             lineHeight: 1,
@@ -43,10 +42,10 @@ export default async function Image() {
         <div
           style={{
             position: "absolute",
-            bottom: "-120px",
-            right: "320px",
-            width: "340px",
-            height: "340px",
+            bottom: "-192px",
+            right: "512px",
+            width: "544px",
+            height: "544px",
             borderRadius: "50%",
             background: "radial-gradient(circle, rgba(242,118,48,0.18) 0%, transparent 70%)",
             display: "flex",
@@ -56,11 +55,11 @@ export default async function Image() {
         {/* Orange accent bar */}
         <div
           style={{
-            width: "56px",
-            height: "5px",
+            width: "90px",
+            height: "8px",
             background: "#F27630",
-            borderRadius: "3px",
-            marginBottom: "44px",
+            borderRadius: "4px",
+            marginBottom: "70px",
             display: "flex",
           }}
         />
@@ -69,12 +68,12 @@ export default async function Image() {
         <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
           <div
             style={{
-              fontSize: "17px",
+              fontSize: "27px",
               fontWeight: 600,
               color: "#F27630",
               letterSpacing: "0.18em",
               textTransform: "uppercase",
-              marginBottom: "18px",
+              marginBottom: "28px",
               display: "flex",
             }}
           >
@@ -83,12 +82,12 @@ export default async function Image() {
 
           <div
             style={{
-              fontSize: "84px",
+              fontSize: "134px",
               fontWeight: 900,
               color: "#FFFFFF",
               lineHeight: 1.0,
               letterSpacing: "-0.025em",
-              marginBottom: "26px",
+              marginBottom: "42px",
               display: "flex",
             }}
           >
@@ -97,11 +96,11 @@ export default async function Image() {
 
           <div
             style={{
-              fontSize: "27px",
+              fontSize: "43px",
               fontWeight: 400,
               color: "rgba(255,255,255,0.60)",
               lineHeight: 1.45,
-              maxWidth: "680px",
+              maxWidth: "1100px",
               display: "flex",
             }}
           >
@@ -116,25 +115,25 @@ export default async function Image() {
             alignItems: "center",
             justifyContent: "space-between",
             borderTop: "1px solid rgba(255,255,255,0.10)",
-            paddingTop: "22px",
+            paddingTop: "36px",
           }}
         >
-          <div style={{ display: "flex", gap: "0px" }}>
-            <div style={{ fontSize: "15px", color: "rgba(255,255,255,0.45)", display: "flex" }}>
+          <div style={{ display: "flex" }}>
+            <div style={{ fontSize: "24px", color: "rgba(255,255,255,0.45)", display: "flex" }}>
               Classes 1–12
             </div>
-            <div style={{ fontSize: "15px", color: "rgba(242,118,48,0.6)", margin: "0 14px", display: "flex" }}>·</div>
-            <div style={{ fontSize: "15px", color: "rgba(255,255,255,0.45)", display: "flex" }}>
+            <div style={{ fontSize: "24px", color: "rgba(242,118,48,0.6)", margin: "0 22px", display: "flex" }}>·</div>
+            <div style={{ fontSize: "24px", color: "rgba(255,255,255,0.45)", display: "flex" }}>
               CBSE · ICSE · State Board
             </div>
-            <div style={{ fontSize: "15px", color: "rgba(242,118,48,0.6)", margin: "0 14px", display: "flex" }}>·</div>
-            <div style={{ fontSize: "15px", color: "rgba(255,255,255,0.45)", display: "flex" }}>
+            <div style={{ fontSize: "24px", color: "rgba(242,118,48,0.6)", margin: "0 22px", display: "flex" }}>·</div>
+            <div style={{ fontSize: "24px", color: "rgba(255,255,255,0.45)", display: "flex" }}>
               Online &amp; Offline
             </div>
           </div>
           <div
             style={{
-              fontSize: "16px",
+              fontSize: "26px",
               fontWeight: 600,
               color: "rgba(255,255,255,0.30)",
               display: "flex",
